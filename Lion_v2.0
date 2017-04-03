@@ -1,4 +1,4 @@
---Author: reloadz0r
+--Author: reloadz0r v_2.0
 local Lion = {}
 
 Lion.optionEnable = Menu.AddOption({ "Hero Specific", ".Lion"}, "Enabled", "")
@@ -8,7 +8,7 @@ Lion.optionStun = Menu.AddOption({ "Hero Specific", ".Lion"}, "Auto Earth Spike"
 Lion.optionVeil = Menu.AddOption({ "Hero Specific", ".Lion"}, "Auto Veil of Discord", "")
 Lion.optionEblade = Menu.AddOption({ "Hero Specific", ".Lion"}, "Auto Ethereal Blade", "")
 Lion.optionDagon = Menu.AddOption({ "Hero Specific", ".Lion"}, "Auto Dagon", "")
-Lion.optionAtos = Menu.AddOption({ "Hero Specific", ".Lion"}, "Auto Atos", "")
+Lion.optionBlink = Menu.AddOption({ "Hero Specific", ".Lion"}, "Auto Blink", "")
 Lion.optionKey = Menu.AddKeyOption({ "Hero Specific", ".Lion"}, "Key", Enum.ButtonCode.KEY_F)
 
 Lion.font = Renderer.LoadFont("Tahoma", 20, Enum.FontWeight.EXTRABOLD)
@@ -36,16 +36,16 @@ function Lion.Combo()
 	local stun = NPC.GetAbilityByIndex(myHero, 0)
 	local veil = NPC.GetItem(myHero, "item_veil_of_discord", true)
 	local eblade = NPC.GetItem(myHero, "item_ethereal_blade", true)
-	local atos = NPC.GetItem(myHero, "item_rod_of_atos", true)
+	local blink = NPC.GetItem(myHero, "item_blink", true) 
 
 	local myMana = NPC.GetMana(myHero)
 	local mousePos = Input.GetWorldCursorPos()
 
+	--Blink
+	if blink and Ability.IsCastable(blink, myMana) and hero ~= nil and not NPC.IsPositionInRange(myHero, NPC.GetAbsOrigin(hero),1200,0) then Ability.CastPosition(blink,mousePos)  end
+	
 	--Hex
 	if hex and Ability.IsCastable(hex, myMana) and Menu.IsEnabled(Lion.optionHex) and NPC.IsEntityInRange(hero, myHero, Ability.GetCastRange(hex)) and Menu.IsKeyDown(Lion.optionKey) then Ability.CastTarget(hex, hero) return end
-	
-	--Atos
-	if atos and Ability.IsCastable(atos, myMana) and Menu.IsEnabled(Lion.optionAtos) and NPC.IsEntityInRange(hero, myHero, Ability.GetCastRange(atos)) and Menu.IsKeyDown(Lion.optionKey) then Ability.CastTarget(atos, hero) return end
 	
 	--Veil of Discord
 	if veil and Ability.IsCastable(veil, myMana) and Menu.IsEnabled(Lion.optionVeil) and NPC.IsEntityInRange(hero, myHero, Ability.GetCastRange(veil)) and Menu.IsKeyDown(Lion.optionKey) then Ability.CastPosition(veil, NPC.GetAbsOrigin(hero)) return end
@@ -69,4 +69,3 @@ function Lion.Combo()
 end
 
 return Lion
-
