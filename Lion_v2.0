@@ -42,7 +42,7 @@ function Lion.Combo()
 	local mousePos = Input.GetWorldCursorPos()
 
 	--Blink
-	if blink and Ability.IsCastable(blink, myMana) and hero ~= nil and not NPC.IsPositionInRange(myHero, NPC.GetAbsOrigin(hero),1200,0) then Ability.CastPosition(blink,mousePos)  end
+	if blink and Ability.IsCastable(blink, myMana) and hero ~= nil and not NPC.IsPositionInRange(myHero, NPC.GetAbsOrigin(hero),600,0) then Ability.CastPosition(blink,mousePos)  end
 	
 	--Hex
 	if hex and Ability.IsCastable(hex, myMana) and Menu.IsEnabled(Lion.optionHex) and NPC.IsEntityInRange(hero, myHero, Ability.GetCastRange(hex)) and Menu.IsKeyDown(Lion.optionKey) then Ability.CastTarget(hex, hero) return end
